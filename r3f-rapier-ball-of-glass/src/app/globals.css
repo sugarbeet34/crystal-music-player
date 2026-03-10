@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide Next.js dev toolbar */
+nextjs-portal {
+  display: none;
+}
+
+@keyframes flipIn {
+  0%   { opacity: 0; transform: translateY(-60%) scaleY(0.4); }
+  60%  { opacity: 1; transform: translateY(8%) scaleY(1.05); }
+  100% { opacity: 1; transform: translateY(0%) scaleY(1); }
+}
+
+.flip {
+  animation: flipIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

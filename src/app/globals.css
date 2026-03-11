@@ -6,6 +6,12 @@ html,
 body {
   margin: 0;
   padding: 0;
+  cursor: none;
+}
+
+/* hide cursor on all elements */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 /* Hide Next.js dev toolbar */

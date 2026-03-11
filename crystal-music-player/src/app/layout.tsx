@@ -12,6 +12,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: '🔮 Crystal Music Player',
+  icons: { icon: '/logo-music.svg' },
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (

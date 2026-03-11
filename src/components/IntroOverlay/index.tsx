@@ -8,6 +8,9 @@ import { COLORS } from '@/store/colors';
 
 import styles from './styles.module.css';
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const LOGO_SRC = `${BASE}/logo-music.svg`;
+
 const INTERACTIONS = [
   {
     signal: '⬡  鼠标拖拽',
@@ -72,7 +75,7 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
         title="Website Intro"
       >
         <Image
-          src="/logo-music.svg"
+          src={LOGO_SRC}
           alt="music"
           width={18}
           height={18}
@@ -102,7 +105,7 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
           {/* header */}
           <div className={styles.header}>
             <Image
-              src="/logo-music.svg"
+              src={LOGO_SRC}
               alt="logo"
               width={28}
               height={28}

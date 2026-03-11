@@ -7,6 +7,7 @@ import { WebGPURenderer } from 'three/webgpu';
 
 import { AudioUploader } from '../AudioUploader';
 import { ColorPicker } from '../ColorPicker';
+import { IntroOverlay } from '../IntroOverlay';
 import { SciFiCursor } from '../SciFiCursor';
 import { AudioReactive } from './AudioReactive';
 import { ColorAnimator } from './ColorAnimator';
@@ -30,20 +31,29 @@ export const Main: FC = () => {
 
   return (
     <div className={styles.scene}>
-      <div
-        className={`${fpsStyles.fpsPanel} ${showMs ? fpsStyles.fpsPanelMs : ''}`}
-        onMouseEnter={() => setShowMs(true)}
-        onMouseLeave={() => setShowMs(false)}
-      >
-        <span
-          className={`${fpsStyles.fpsValue} ${showMs ? fpsStyles.fpsValueHidden : ''}`}
-          ref={fpsRef}
-        >--</span>
-        <span
-          className={`${fpsStyles.fpsValue} ${fpsStyles.msValue} ${showMs ? '' : fpsStyles.fpsValueHidden}`}
-          ref={msRef}
-        >--</span>
-        <span className={fpsStyles.fpsLabel}>{showMs ? 'MS' : 'FPS'}</span>
+      {/* page title */}
+      <div className={styles.pageTitle}>
+        <span className={styles.pageTitleText}>🔮 CRYSTAL MUSIC PLAYER</span>
+      </div>
+
+      {/* top-right column: intro button + fps */}
+      <div className={styles.topRight}>
+        <IntroOverlay />
+        <div
+          className={`${fpsStyles.fpsPanel} ${showMs ? fpsStyles.fpsPanelMs : ''}`}
+          onMouseEnter={() => setShowMs(true)}
+          onMouseLeave={() => setShowMs(false)}
+        >
+          <span
+            className={`${fpsStyles.fpsValue} ${showMs ? fpsStyles.fpsValueHidden : ''}`}
+            ref={fpsRef}
+          >--</span>
+          <span
+            className={`${fpsStyles.fpsValue} ${fpsStyles.msValue} ${showMs ? '' : fpsStyles.fpsValueHidden}`}
+            ref={msRef}
+          >--</span>
+          <span className={fpsStyles.fpsLabel}>{showMs ? 'MS' : 'FPS'}</span>
+        </div>
       </div>
 
       <Canvas

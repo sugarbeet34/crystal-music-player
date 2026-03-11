@@ -80,7 +80,7 @@
   font-size: 11px;
   font-family: 'Courier New', monospace;
   letter-spacing: 0.2em;
-  color: rgba(168, 237, 255, 0.75);
+  color: rgba(168, 237, 255, 0.9);
   flex-shrink: 0;
 }
 
@@ -88,7 +88,7 @@
   font-size: 10px;
   font-family: 'Courier New', monospace;
   letter-spacing: 0.08em;
-  color: rgba(168, 237, 255, 0.45);
+  color: rgba(168, 237, 255, 0.6);
 }
 
 /* ── track list ── */
@@ -138,14 +138,14 @@
   font-size: 13px;
   font-family: 'Courier New', monospace;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.trackBtnActive .trackName { color: rgba(255, 255, 255, 0.88); }
+.trackBtnActive .trackName { color: rgba(255, 255, 255, 0.95); }
 
 .trackLoading {
   font-size: 13px;
@@ -241,17 +241,38 @@
   width: 100%;
   padding: 9px 18px;
   border-radius: 14px;
-  border: 1px solid rgba(168, 237, 255, 0.18);
+  border: 1px solid rgba(168, 237, 255, 0.35);
   background: rgba(4, 8, 18, 0.72);
   backdrop-filter: blur(16px);
+  animation: miniBarGlow 2s ease-in-out infinite;
   transition:
     border-radius 0.4s ease,
-    border-top-color 0.35s ease;
+    border-top-color 0.35s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@keyframes miniBarGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 14px rgba(168, 237, 255, 0.3),
+      0 0 32px rgba(168, 237, 255, 0.12),
+      inset 0 0 10px rgba(168, 237, 255, 0.04);
+  }
+  50% {
+    box-shadow:
+      0 0 28px rgba(168, 237, 255, 0.6),
+      0 0 60px rgba(168, 237, 255, 0.22),
+      inset 0 0 16px rgba(168, 237, 255, 0.08);
+  }
 }
 
 .panel:hover .miniBar {
   border-radius: 0 0 14px 14px;
+  border-color: rgba(168, 237, 255, 0.18);
   border-top-color: rgba(168, 237, 255, 0.06);
+  box-shadow: none;
+  animation: none;
 }
 
 /* ── mini player layout ── */
@@ -282,14 +303,14 @@
 
 .miniIcon {
   width: 11px; height: 11px;
-  color: rgba(168, 237, 255, 0.75);
+  color: rgba(168, 237, 255, 0.95);
 }
 
 .miniName {
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'Courier New', monospace;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.82);
   flex-shrink: 0;
   max-width: 22%;
   overflow: hidden;
@@ -337,10 +358,10 @@
 }
 
 .miniTime {
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Courier New', monospace;
   letter-spacing: 0.05em;
-  color: rgba(168, 237, 255, 0.35);
+  color: rgba(168, 237, 255, 0.7);
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -353,9 +374,9 @@
 }
 
 .miniHintText {
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Courier New', monospace;
-  letter-spacing: 0.18em;
-  color: rgba(168, 237, 255, 0.65);
-  text-shadow: 0 0 12px rgba(168, 237, 255, 0.3);
+  letter-spacing: 0.2em;
+  color: rgba(168, 237, 255, 0.88);
+  text-shadow: 0 0 16px rgba(168, 237, 255, 0.5), 0 0 32px rgba(168, 237, 255, 0.2);
 }

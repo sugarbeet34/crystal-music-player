@@ -1,0 +1,361 @@
+.container {
+  position: fixed;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 66.67vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hiddenInput { display: none; }
+
+/* ── outer panel wrapper ── */
+.panel {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ── expandable body ── */
+.expandBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 20px 14px;
+  border-radius: 14px 14px 0 0;
+  border: 1px solid rgba(168, 237, 255, 0.18);
+  border-bottom: none;
+  background: rgba(4, 8, 18, 0.80);
+  backdrop-filter: blur(18px);
+
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s ease,
+    padding-top 0.4s ease,
+    padding-bottom 0.4s ease;
+  pointer-events: none;
+}
+
+.panel:hover .expandBody {
+  max-height: 500px;
+  opacity: 1;
+  padding-top: 16px;
+  padding-bottom: 14px;
+  pointer-events: auto;
+}
+
+/* scan lines texture */
+.scanLines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 200, 0.018) 2px,
+    rgba(0, 255, 200, 0.018) 4px
+  );
+  border-radius: inherit;
+}
+
+/* ── section header row ── */
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.2em;
+  color: rgba(168, 237, 255, 0.75);
+  flex-shrink: 0;
+}
+
+.sectionDesc {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  color: rgba(168, 237, 255, 0.45);
+}
+
+/* ── track list ── */
+.trackList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.trackBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 13px;
+  border-radius: 7px;
+  border: 1px solid rgba(168, 237, 255, 0.08);
+  background: rgba(168, 237, 255, 0.03);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+  overflow: hidden;
+}
+
+.trackBtn:hover {
+  border-color: rgba(168, 237, 255, 0.25);
+  background: rgba(168, 237, 255, 0.06);
+}
+
+.trackBtnActive {
+  border-color: rgba(168, 237, 255, 0.45) !important;
+  background: rgba(168, 237, 255, 0.08) !important;
+}
+
+.trackIndex {
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+  color: rgba(168, 237, 255, 0.45);
+  flex-shrink: 0;
+  width: 22px;
+}
+
+.trackBtnActive .trackIndex { color: rgba(168, 237, 255, 0.9); }
+
+.trackName {
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.5);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackBtnActive .trackName { color: rgba(255, 255, 255, 0.88); }
+
+.trackLoading {
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  color: rgba(168, 237, 255, 0.6);
+  animation: blink 0.8s step-start infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+.trackActiveBar {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #a8edff, #c8b4ff);
+  border-radius: 0 7px 7px 0;
+  box-shadow: 0 0 8px rgba(168, 237, 255, 0.6);
+  animation: activeBarPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes activeBarPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* ── divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(168, 237, 255, 0.2);
+}
+
+.dividerText {
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.2em;
+  color: rgba(168, 237, 255, 0.6);
+  flex-shrink: 0;
+}
+
+/* ── upload zone ── */
+.uploadZone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 7px;
+  border: 1px dashed rgba(168, 237, 255, 0.22);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.uploadZone:hover {
+  border-color: rgba(168, 237, 255, 0.45);
+  background: rgba(168, 237, 255, 0.04);
+}
+
+.uploadZone.dragging {
+  border-color: rgba(168, 237, 255, 0.75);
+  background: rgba(168, 237, 255, 0.07);
+}
+
+.uploadIcon {
+  font-size: 13px;
+  color: rgba(168, 237, 255, 0.5);
+}
+
+.uploadHint {
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ────────────────────────────────────────
+   MINI BAR — always visible
+──────────────────────────────────────── */
+.miniBar {
+  position: relative;
+  width: 100%;
+  padding: 9px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(168, 237, 255, 0.18);
+  background: rgba(4, 8, 18, 0.72);
+  backdrop-filter: blur(16px);
+  transition:
+    border-radius 0.4s ease,
+    border-top-color 0.35s ease;
+}
+
+.panel:hover .miniBar {
+  border-radius: 0 0 14px 14px;
+  border-top-color: rgba(168, 237, 255, 0.06);
+}
+
+/* ── mini player layout ── */
+.miniPlayer {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.miniPlayBtn {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(168, 237, 255, 0.22);
+  background: rgba(168, 237, 255, 0.05);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.miniPlayBtn:hover {
+  background: rgba(168, 237, 255, 0.12);
+  border-color: rgba(168, 237, 255, 0.45);
+}
+
+.miniIcon {
+  width: 11px; height: 11px;
+  color: rgba(168, 237, 255, 0.75);
+}
+
+.miniName {
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  max-width: 22%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.miniTrack {
+  flex: 1;
+  position: relative;
+  height: 2px;
+  background: rgba(168, 237, 255, 0.1);
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.miniTrack:hover { height: 3px; }
+
+.miniTrack:hover .miniThumb {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-50%) scale(1);
+}
+
+.miniFill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #a8edff, #c8b4ff);
+  box-shadow: 0 0 5px rgba(168, 237, 255, 0.45);
+  pointer-events: none;
+}
+
+.miniThumb {
+  position: absolute;
+  top: 50%;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #a8edff;
+  box-shadow: 0 0 6px rgba(168, 237, 255, 0.8);
+  transform: translateX(-50%) translateY(-50%) scale(0.5);
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  pointer-events: none;
+}
+
+.miniTime {
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.05em;
+  color: rgba(168, 237, 255, 0.35);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── mini hint (no track loaded) ── */
+.miniHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.miniHintText {
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.18em;
+  color: rgba(168, 237, 255, 0.65);
+  text-shadow: 0 0 12px rgba(168, 237, 255, 0.3);
+}

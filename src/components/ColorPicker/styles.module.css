@@ -1,0 +1,58 @@
+.picker {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 999px;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.dot:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* wrapper 只负责水平滑动，急刹车曲线 */
+/* left/top 由 JS 设置为选中圆点的圆心坐标，只有 left 参与过渡 */
+.indicatorWrapper {
+  position: absolute;
+  transition: left 0.55s cubic-bezier(0.15, 1.4, 0.35, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 内层负责居中 + 持续呼吸动画 */
+.indicator {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.3);
+  /* 居中对齐圆心 */
+  transform: translate(-50%, -50%);
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 0.5; }
+  50%  { transform: translate(-50%, -50%) scale(1.4);  opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.5; }
+}

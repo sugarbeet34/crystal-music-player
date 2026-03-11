@@ -7,6 +7,7 @@ import { WebGPURenderer } from 'three/webgpu';
 
 import { AudioUploader } from '../AudioUploader';
 import { ColorPicker } from '../ColorPicker';
+import { SciFiCursor } from '../SciFiCursor';
 import { AudioReactive } from './AudioReactive';
 import { ColorAnimator } from './ColorAnimator';
 import fpsStyles from './fps.module.css';
@@ -79,6 +80,8 @@ export const Main: FC = () => {
       <AudioUploader controls={audioControls} />
 
       <ColorPicker onColorChange={setActiveColor} activeColor={activeColor} />
+
+      <SciFiCursor />
     </div>
   );
 };

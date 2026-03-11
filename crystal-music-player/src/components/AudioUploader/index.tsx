@@ -18,9 +18,11 @@ interface IProps {
   controls: AudioAnalyserControls;
 }
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 const DEMOS = [
-  { label: 'R&B · Lofi', file: '/music/RnB-Lofi.mp3' },
-  { label: 'Jazz · Joyfully', file: '/music/Jazz-Joyfully.mp3' },
+  { label: 'R&B · Lofi', file: `${BASE}/music/RnB-Lofi.mp3` },
+  { label: 'Jazz · Joyfully', file: `${BASE}/music/Jazz-Joyfully.mp3` },
 ];
 
 function formatTime(s: number): string {

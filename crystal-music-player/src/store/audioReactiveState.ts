@@ -6,5 +6,6 @@ export const audioReactiveState = {
   targetSpeedMultiplier: 1,
   attractForce: 0.02,
   bloomStrength: 0.1,
-  explosionImpulse: 0,   // outward impulse applied to each fragment this frame
+  explosionImpulse: 0,
+  trebleHueShift: 0,  // positive = cooler (toward blue), range 0~0.18
 };

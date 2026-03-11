@@ -10,6 +10,8 @@ import {
   SpriteMaterial,
 } from 'three';
 
+import { audioData } from '@/store/audioStore';
+
 interface OrbConfig {
   orbitRadius: number;
   orbitSpeed: number;
@@ -120,6 +122,7 @@ export const OrbitingOrbs = ({ targetColor }: IProps) => {
 
   useFrame((_, delta) => {
     const t = performance.now() / 1000;
+    const { bass, rms, isPlaying } = audioData;
 
     // lerp base color
     targetColorObj.current.setHex(targetColor);
@@ -130,7 +133,7 @@ export const OrbitingOrbs = ({ targetColor }: IProps) => {
       const light = lights[i];
       const angle = cfg.phase + t * cfg.orbitSpeed;
 
-      // elliptical orbit
+      // elliptical orbit base position
       const x = Math.cos(angle) * cfg.orbitRadius;
       const y = Math.sin(angle) * cfg.orbitRadius * 0.35;
       const z = Math.sin(angle) * cfg.orbitRadius;
@@ -143,28 +146,35 @@ export const OrbitingOrbs = ({ targetColor }: IProps) => {
       const x2 = x * cosZ - y1 * sinZ;
       const y2 = x * sinZ + y1 * cosZ;
 
-      sprite.position.set(x2, y2, z1);
-      light.position.set(x2, y2, z1);
+      // ── low-freq micro-vibration ──
+      // each orb vibrates at a unique high-freq noise using its index as seed
+      const vibAmp = isPlaying ? bass * 0.024 : 0;
+      const seed = i * 1.7321;
+      const vx = Math.sin(t * 72.5 + seed)       * vibAmp;
+      const vy = Math.sin(t * 81.3 + seed + 1.1) * vibAmp * 0.6;
+      const vz = Math.sin(t * 68.7 + seed + 2.3) * vibAmp;
 
-      // depth factor: z1 in range [-radius, +radius], camera is at +Z
-      // z1 > 0 = in front (closer to viewer), z1 < 0 = behind ball
-      const depthFactor = (z1 + cfg.orbitRadius) / (cfg.orbitRadius * 2); // 0~1
+      sprite.position.set(x2 + vx, y2 + vy, z1 + vz);
+      light.position.set(x2 + vx, y2 + vy, z1 + vz);
+
+      // depth factor
+      const depthFactor = (z1 + cfg.orbitRadius) / (cfg.orbitRadius * 2);
 
       // breath
       const breath = (Math.sin(t * cfg.breathSpeed + cfg.breathPhase) + 1) / 2;
       const baseOpacity = cfg.breathMin + breath * (cfg.breathMax - cfg.breathMin);
 
-      // depth modulation: behind = 0.15x opacity & scale, front = full
+      // ── rms → scale + opacity boost ──
+      const rmsBoost = isPlaying ? rms * 1.4 : 0;
+
       const depthOpacity = 0.15 + depthFactor * 0.85;
       const depthScale   = 0.5  + depthFactor * 0.5;
 
-      sprite.material.opacity = baseOpacity * depthOpacity;
-      sprite.scale.setScalar(cfg.scale * depthScale);
+      sprite.material.opacity = Math.min(1, (baseOpacity + rmsBoost * 0.4) * depthOpacity);
+      sprite.scale.setScalar(cfg.scale * depthScale * (1 + rmsBoost * 0.2));
 
-      // point light intensity follows breath + depth (only visible when in front half)
-      light.intensity = breath * cfg.lightIntensity * Math.max(0, depthFactor * 2 - 0.5);
+      light.intensity = (breath + rmsBoost * 0.6) * cfg.lightIntensity * Math.max(0, depthFactor * 2 - 0.5);
 
-      // per-orb color derived from current base
       const orbColor = deriveOrbColor(baseColor.current, cfg.hueShift, cfg.satBoost);
       sprite.material.color.copy(orbColor);
       light.color.copy(orbColor);

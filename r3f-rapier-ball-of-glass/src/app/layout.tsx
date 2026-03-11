@@ -11,7 +11,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: 'Ball of Glass with Physics and Attraction / Three.js / R3F / Rapier',
+  title: '🔮 Crystal Music Player',
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (

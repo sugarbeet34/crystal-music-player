@@ -5,13 +5,16 @@ import { FC, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { WebGPURenderer } from 'three/webgpu';
 
+import { AudioUploader } from '../AudioUploader';
 import { ColorPicker } from '../ColorPicker';
+import { AudioReactive } from './AudioReactive';
 import { ColorAnimator } from './ColorAnimator';
 import fpsStyles from './fps.module.css';
 import { FpsMeasurer } from './FpsMeasurer';
 import { Scene } from './Scene';
 import styles from './styles.module.css';
 import { WebGPUPostProcessing } from './WebGPUPostProcessing';
+import { useAudioAnalyser } from '@/hooks/useAudioAnalyser';
 
 const DEFAULT_COLOR = 0xeeeeff;
 
@@ -21,6 +24,8 @@ export const Main: FC = () => {
   const [showMs, setShowMs] = useState(false);
   const fpsRef = useRef<HTMLSpanElement>(null);
   const msRef = useRef<HTMLSpanElement>(null);
+
+  const audioControls = useAudioAnalyser();
 
   return (
     <div className={styles.scene}>
@@ -64,10 +69,14 @@ export const Main: FC = () => {
 
         <WebGPUPostProcessing />
 
+        <AudioReactive />
+
         <ColorAnimator targetColor={activeColor} />
 
         <Scene activeColor={activeColor} />
       </Canvas>
+
+      <AudioUploader controls={audioControls} />
 
       <ColorPicker onColorChange={setActiveColor} activeColor={activeColor} />
     </div>

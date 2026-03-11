@@ -2,8 +2,10 @@ import { useGLTF } from '@react-three/drei';
 
 import { Modify } from './Modify';
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 export const Model = () => {
-  const gltf = useGLTF('/models/model.glb');
+  const gltf = useGLTF(`${BASE}/models/model.glb`);
   const nodes = gltf.nodes as any;
 
   return (

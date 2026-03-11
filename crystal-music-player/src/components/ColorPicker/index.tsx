@@ -2,6 +2,8 @@
 
 import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+import { COLORS } from '@/store/colors';
+
 import styles from './styles.module.css';
 
 interface IProps {
@@ -9,19 +11,13 @@ interface IProps {
   activeColor: number;
 }
 
-const COLORS: { label: string; value: number; display: string }[] = [
-  { label: 'Ice Blue', value: 0xeeeeff, display: '#eeeeff' },
-  { label: 'Rose', value: 0xffddee, display: '#ffddee' },
-  { label: 'Mint', value: 0xddfff0, display: '#ddfff0' },
-  { label: 'Gold', value: 0xfff5cc, display: '#fff5cc' },
-  { label: 'Vivid Purple', value: 0x9922ee, display: '#9922ee' },
-  { label: 'Vivid Blue', value: 0x3399ff, display: '#3399ff' },
-];
-
 export const ColorPicker: FC<IProps> = ({ onColorChange, activeColor }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [indicatorPos, setIndicatorPos] = useState<{ x: number; y: number } | null>(null);
+  const [indicatorPos, setIndicatorPos] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   const activeIndex = COLORS.findIndex((c) => c.value === activeColor);
 
@@ -40,6 +36,7 @@ export const ColorPicker: FC<IProps> = ({ onColorChange, activeColor }) => {
   };
 
   // 首次挂载同步测量，避免闪烁
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(measure, []);
   // activeIndex 变化时更新位置（触发 CSS transition）
   useEffect(measure, [activeIndex]);

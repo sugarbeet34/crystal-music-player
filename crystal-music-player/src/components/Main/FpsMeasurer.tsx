@@ -1,16 +1,16 @@
-import { useRef } from 'react';
+import { RefObject, useRef } from 'react';
 
 import { useFrame } from '@react-three/fiber';
 
 interface IProps {
-  fpsRef: React.RefObject<HTMLSpanElement | null>;
-  msRef: React.RefObject<HTMLSpanElement | null>;
+  fpsRef: RefObject<HTMLSpanElement | null>;
+  msRef: RefObject<HTMLSpanElement | null>;
 }
 
 export const FpsMeasurer = ({ fpsRef, msRef }: IProps) => {
   const frames = useRef(0);
-  const bucketStart = useRef(performance.now());
-  const frameStart = useRef(performance.now());
+  const bucketStart = useRef(0);
+  const frameStart = useRef(0);
   const msAccum = useRef(0);
   const msCount = useRef(0);
 

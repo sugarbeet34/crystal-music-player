@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { Color } from 'three';
 
 import { audioReactiveState } from '@/store/audioReactiveState';
+
 import { material } from './Model/material';
 
 interface IProps {

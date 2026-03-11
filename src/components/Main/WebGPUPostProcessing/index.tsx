@@ -8,8 +8,8 @@ import { PostProcessing } from 'three/webgpu';
 import { audioReactiveState } from '@/store/audioReactiveState';
 
 export const bloomUniforms = {
-  strength:  uniform(0.1),
-  radius:    uniform(0.5),
+  strength: uniform(0.1),
+  radius: uniform(0.5),
   threshold: uniform(0.5),
 };
 
@@ -23,17 +23,19 @@ export const WebGPUPostProcessing = () => {
     const postProcessing = new PostProcessing(renderer as any);
     postProcessingRef.current = postProcessing;
 
-    const scenePass      = pass(scene, camera);
+    const scenePass = pass(scene, camera);
     const scenePassColor = scenePass.getTextureNode('output');
 
-    const bloomPass      = bloom(scenePassColor);
-    bloomPass.strength   = bloomUniforms.strength;
-    bloomPass.radius     = bloomUniforms.radius;
-    bloomPass.threshold  = bloomUniforms.threshold;
+    const bloomPass = bloom(scenePassColor);
+    bloomPass.strength = bloomUniforms.strength;
+    bloomPass.radius = bloomUniforms.radius;
+    bloomPass.threshold = bloomUniforms.threshold;
 
     postProcessing.outputNode = scenePassColor.add(bloomPass);
 
-    return () => { postProcessing.dispose(); };
+    return () => {
+      postProcessing.dispose();
+    };
   }, [renderer, scene, camera]);
 
   useFrame(() => {

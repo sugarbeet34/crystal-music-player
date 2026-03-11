@@ -68,6 +68,7 @@ export const Scene: FC<{ activeColor: number }> = ({ activeColor }) => {
       <Physics gravity={[0, 0, 0]} colliders="hull">
         <group ref={groupRef} scale={1}>
           <Pointer />
+
           <Model />
         </group>
       </Physics>

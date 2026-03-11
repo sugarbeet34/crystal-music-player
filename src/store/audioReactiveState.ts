@@ -7,5 +7,5 @@ export const audioReactiveState = {
   attractForce: 0.02,
   bloomStrength: 0.1,
   explosionImpulse: 0,
-  trebleHueShift: 0,  // positive = cooler (toward blue), range 0~0.18
+  trebleHueShift: 0, // positive = cooler (toward blue), range 0~0.18
 };

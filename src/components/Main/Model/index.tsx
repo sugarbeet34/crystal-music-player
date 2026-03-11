@@ -20,7 +20,7 @@ export const Model = () => {
 
       <mesh
         geometry={nodes.Icosphere004.geometry}
-        material={nodes.Icosphere004.material} 
+        material={nodes.Icosphere004.material}
       />
 
       <mesh

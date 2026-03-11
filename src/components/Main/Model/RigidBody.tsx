@@ -21,7 +21,9 @@ export const ModelRigidBody: FC<PropsWithChildren> = ({ children }) => {
     if (impulse > 0) {
       body.setLinvel({ x: 0, y: 0, z: 0 }, true);
       const len = Math.sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z) || 1;
-      vec.set(pos.x / len, pos.y / len, pos.z / len).multiplyScalar(impulse * 0.4);
+      vec
+        .set(pos.x / len, pos.y / len, pos.z / len)
+        .multiplyScalar(impulse * 0.4);
       body.applyImpulse(vec, true);
       explodingFrames.current = 5; // fly freely for ~5 frames, then snap back
     }
@@ -32,7 +34,10 @@ export const ModelRigidBody: FC<PropsWithChildren> = ({ children }) => {
     if (explodingFrames.current > 0) explodingFrames.current--;
 
     // attraction toward center
-    vec.set(pos.x, pos.y, pos.z).negate().multiplyScalar(audioReactiveState.attractForce);
+    vec
+      .set(pos.x, pos.y, pos.z)
+      .negate()
+      .multiplyScalar(audioReactiveState.attractForce);
     body.applyImpulse(vec, true);
   });
 

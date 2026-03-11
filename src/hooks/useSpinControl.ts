@@ -1,22 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
 import { Group } from 'three';
 import { Raf } from 'vevet';
 
 import { audioReactiveState } from '@/store/audioReactiveState';
 
-const BASE_SPEED    = 0.004;
+const BASE_SPEED = 0.004;
 const DRAG_STRENGTH = 1.2;
-const DAMPING       = 0.94;
-const EASE          = 0.018;
+const DAMPING = 0.94;
+const EASE = 0.018;
 
-export function useSpinControl(groupRef: React.RefObject<Group | null>) {
-  const velRef          = useRef(BASE_SPEED);
-  const angleRef        = useRef(0);
+export function useSpinControl(groupRef: RefObject<Group | null>) {
+  const velRef = useRef(BASE_SPEED);
+  const angleRef = useRef(0);
   const displayAngleRef = useRef(0);
 
   const isDragging = useRef(false);
-  const lastX      = useRef(0);
+  const lastX = useRef(0);
 
   useEffect(() => {
     const onMouseDown = (e: MouseEvent) => {
@@ -31,7 +31,9 @@ export function useSpinControl(groupRef: React.RefObject<Group | null>) {
       velRef.current += (dx / window.innerWidth) * DRAG_STRENGTH;
     };
 
-    const onMouseUp = () => { isDragging.current = false; };
+    const onMouseUp = () => {
+      isDragging.current = false;
+    };
 
     window.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mousemove', onMouseMove);

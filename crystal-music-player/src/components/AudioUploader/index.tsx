@@ -47,7 +47,7 @@ const PauseIcon = ({ className }: { className: string }) => (
   </svg>
 );
 
-export const AudioUploader: FC<IProps> = ({ controls }) => {
+export const AudioUploader: FC<IProps> = ({ controls, onCollapseChange }) => {
   const {
     isPlaying,
     isLoaded,
@@ -137,15 +137,22 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
               setIsCollapsed(!isCollapsed);
               onCollapseChange?.(!isCollapsed);
             }}
-            title={isCollapsed ? "展开面板" : "隐藏面板"}
+            title={isCollapsed ? '展开面板' : '隐藏面板'}
           >
-            <span className={styles.collapseIcon}>{isCollapsed ? "↗" : "↙"}</span>
-            <span className={styles.collapseText}>{isCollapsed ? "展开面板" : "隐藏面板"}</span>
+            <span className={styles.collapseIcon}>
+              {isCollapsed ? '↗' : '↙'}
+            </span>
+
+            <span className={styles.collapseText}>
+              {isCollapsed ? '展开面板' : '隐藏面板'}
+            </span>
           </button>
         </div>
 
         {/* ── expandable content (hover to reveal) ── */}
-        <div className={`${styles.expandBody} ${isCollapsed ? styles.expandBodyCollapsed : ''}`}>
+        <div
+          className={`${styles.expandBody} ${isCollapsed ? styles.expandBodyCollapsed : ''}`}
+        >
           <div className={styles.scanLines} />
 
           {/* demo tracks section */}
@@ -270,6 +277,7 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
       {showSuccess && (
         <div className={styles.successNotification}>
           <span className={styles.successIcon}>✓</span>
+
           <span className={styles.successText}>文件上传成功！</span>
         </div>
       )}

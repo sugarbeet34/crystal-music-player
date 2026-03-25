@@ -1,0 +1,13 @@
+# serverless.yml - 腾讯云Serverless部署配置
+component: website
+name: crystal-music-player
+
+inputs:
+  src:
+    src: ./
+    index: index.html
+    error: index.html
+  region: ap-guangzhou
+  bucketName: crystal-music-player-${appId}
+  protocol: https
+  replace: false

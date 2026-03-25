@@ -15,7 +15,7 @@ export const DeviceOrientationButton: FC = () => {
 
   return (
     <button type="button" className={styles.button} onClick={request}>
-      Enable device motion controls
+      启用设备运动控制
     </button>
   );
 };

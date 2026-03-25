@@ -82,7 +82,7 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
           className={styles.triggerIcon}
         />
 
-        <span className={styles.triggerLabel}>INTRO</span>
+        <span className={styles.triggerLabel}>使用介绍</span>
       </button>
 
       {/* overlay */}
@@ -113,7 +113,7 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
             />
 
             <div>
-              <div className={styles.title}>CRYSTAL MUSIC PLAYER</div>
+              <div className={styles.title}>水晶音乐播放器</div>
 
               <div className={styles.subtitle}>实时音频驱动的三维交互体验</div>
             </div>
@@ -132,7 +132,7 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
           {/* color picker section */}
           <div className={styles.colorSection}>
             <div className={styles.colorSectionHeader}>
-              <span className={styles.colorSectionLabel}>ATMOSPHERE</span>
+              <span className={styles.colorSectionLabel}>氛围</span>
 
               <span className={styles.colorSectionDivider} />
 
@@ -169,11 +169,11 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
           {/* table */}
           <div className={styles.tableWrap}>
             <div className={styles.tableHead}>
-              <span>INPUT SIGNAL</span>
+              <span>输入信号</span>
 
-              <span>MAPPED TARGET</span>
+              <span>映射目标</span>
 
-              <span>BEHAVIOR</span>
+              <span>行为</span>
             </div>
 
             {INTERACTIONS.map((row, i) => (
@@ -193,10 +193,8 @@ export const IntroOverlay = ({ onColorChange, activeColor }: IProps) => {
 
           <div className={styles.footer}>
             <span className={styles.footerText}>
-              POWERED BY &nbsp;THREE.JS · RAPIER · WEB AUDIO API · NEXT.JS
+              技术支持 &nbsp;THREE.JS · RAPIER · WEB AUDIO API · NEXT.JS
             </span>
-
-            <span className={styles.footerAuthor}>authored by joycetong</span>
           </div>
         </div>
       </div>

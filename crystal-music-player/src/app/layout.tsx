@@ -5,12 +5,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '🔮 Crystal Music Player',
+  title: '🔮 水晶音乐播放器',
   icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/logo-music.svg` },
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
-  <html lang="en">
+  <html lang="zh">
     <body>{children}</body>
   </html>
 );

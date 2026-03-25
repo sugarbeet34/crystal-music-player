@@ -16,6 +16,7 @@ import styles from './styles.module.css';
 
 interface IProps {
   controls: AudioAnalyserControls;
+  onCollapseChange?: (collapsed: boolean) => void;
 }
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -62,6 +63,8 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [loadingIndex, setLoadingIndex] = useState<number | null>(null);
   const [activeDemo, setActiveDemo] = useState<number | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleFile = useCallback(
     (file: File) => {
@@ -69,6 +72,8 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
         return;
       setActiveDemo(null);
       loadFile(file);
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
     },
     [loadFile],
   );
@@ -123,13 +128,29 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
       />
 
       <div className={styles.panel}>
+        {/* ── panel header with collapse button ── */}
+        <div className={styles.panelHeader}>
+          <button
+            type="button"
+            className={styles.collapseBtn}
+            onClick={() => {
+              setIsCollapsed(!isCollapsed);
+              onCollapseChange?.(!isCollapsed);
+            }}
+            title={isCollapsed ? "展开面板" : "隐藏面板"}
+          >
+            <span className={styles.collapseIcon}>{isCollapsed ? "↗" : "↙"}</span>
+            <span className={styles.collapseText}>{isCollapsed ? "展开面板" : "隐藏面板"}</span>
+          </button>
+        </div>
+
         {/* ── expandable content (hover to reveal) ── */}
-        <div className={styles.expandBody}>
+        <div className={`${styles.expandBody} ${isCollapsed ? styles.expandBodyCollapsed : ''}`}>
           <div className={styles.scanLines} />
 
           {/* demo tracks section */}
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>DEMO TRACKS</span>
+            <span className={styles.sectionLabel}>示例曲目</span>
 
             <span className={styles.sectionDesc}>2 首预置曲目 · 点击播放</span>
           </div>
@@ -169,14 +190,14 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
           <div className={styles.divider}>
             <span className={styles.dividerLine} />
 
-            <span className={styles.dividerText}>OR UPLOAD</span>
+            <span className={styles.dividerText}>或上传</span>
 
             <span className={styles.dividerLine} />
           </div>
 
           {/* upload section */}
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>YOUR TRACK</span>
+            <span className={styles.sectionLabel}>你的曲目</span>
 
             <span className={styles.sectionDesc}>
               MP3 · WAV · FLAC · AAC · M4A · MP4
@@ -195,7 +216,7 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
           >
             <span className={styles.uploadIcon}>⬆</span>
 
-            <span className={styles.uploadHint}>拖入文件 / 点击选择</span>
+            <span className={styles.uploadHint}>点击选择上传文件</span>
           </div>
         </div>
 
@@ -238,12 +259,20 @@ export const AudioUploader: FC<IProps> = ({ controls }) => {
           ) : (
             <div className={styles.miniHint}>
               <span className={styles.miniHintText}>
-                ♫ &nbsp;CRYSTAL MUSIC PLAYER
+                ♫ &nbsp;水晶音乐播放器
               </span>
             </div>
           )}
         </div>
       </div>
+
+      {/* Upload success notification */}
+      {showSuccess && (
+        <div className={styles.successNotification}>
+          <span className={styles.successIcon}>✓</span>
+          <span className={styles.successText}>文件上传成功！</span>
+        </div>
+      )}
     </div>
   );
 };

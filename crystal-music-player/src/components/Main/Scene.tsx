@@ -4,6 +4,8 @@ import { Environment } from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 import { Group, Vector3 } from 'three';
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 import { useAnimatableVec3 } from '@/hooks/useAnimatableVec3';
 import { useDeviceOrientationDelta } from '@/hooks/useDeviceOrientationDelta';
 import { useMouseMoveDelta } from '@/hooks/useMouseMoveDelta';
@@ -61,7 +63,7 @@ export const Scene: FC<{ activeColor: number }> = ({ activeColor }) => {
 
   return (
     <>
-      <Environment files="env/warehouse.hdr" environmentIntensity={1} />
+      <Environment files={`${BASE}/env/warehouse.hdr`} environmentIntensity={1} />
 
       <OrbitingOrbs targetColor={activeColor} />
 

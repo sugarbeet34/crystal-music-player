@@ -42,29 +42,33 @@ export const ColorPicker: FC<IProps> = ({ onColorChange, activeColor }) => {
   useEffect(measure, [activeIndex]);
 
   return (
-    <div ref={containerRef} className={styles.picker}>
-      {indicatorPos && (
-        <div
-          className={styles.indicatorWrapper}
-          style={{ left: indicatorPos.x, top: indicatorPos.y }}
-        >
-          <div className={styles.indicator} />
-        </div>
-      )}
+    <div className={styles.pickerContainer}>
+      <div ref={containerRef} className={styles.picker}>
+        <div className={styles.pickerLabel}>氛围感颜色选择</div>
 
-      {COLORS.map((c, i) => (
-        <button
-          key={c.value}
-          ref={(el) => {
-            buttonRefs.current[i] = el;
-          }}
-          type="button"
-          className={styles.dot}
-          style={{ background: c.display }}
-          title={c.label}
-          onClick={() => onColorChange(c.value)}
-        />
-      ))}
+        {indicatorPos && (
+          <div
+            className={styles.indicatorWrapper}
+            style={{ left: indicatorPos.x, top: indicatorPos.y }}
+          >
+            <div className={styles.indicator} />
+          </div>
+        )}
+
+        {COLORS.map((c, i) => (
+          <button
+            key={c.value}
+            ref={(el) => {
+              buttonRefs.current[i] = el;
+            }}
+            type="button"
+            className={styles.dot}
+            style={{ background: c.display }}
+            title={c.label}
+            onClick={() => onColorChange(c.value)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

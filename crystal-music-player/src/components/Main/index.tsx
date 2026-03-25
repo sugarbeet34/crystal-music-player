@@ -26,6 +26,7 @@ export const Main: FC = () => {
   const [frameloop, setFrameloop] = useState<'never' | 'always'>('never');
   const [activeColor, setActiveColor] = useState(DEFAULT_COLOR);
   const [showMs, setShowMs] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const fpsRef = useRef<HTMLSpanElement>(null);
   const msRef = useRef<HTMLSpanElement>(null);
 
@@ -35,7 +36,7 @@ export const Main: FC = () => {
     <div className={styles.scene}>
       {/* page title */}
       <div className={styles.pageTitle}>
-        <span className={styles.pageTitleText}>🔮 CRYSTAL MUSIC PLAYER</span>
+        <span className={styles.pageTitleText}>🔮 水晶音乐播放器</span>
       </div>
 
       {/* top-right column: intro button + fps */}
@@ -99,9 +100,14 @@ export const Main: FC = () => {
         <Scene activeColor={activeColor} />
       </Canvas>
 
-      <AudioUploader controls={audioControls} />
+      <AudioUploader
+        controls={audioControls}
+        onCollapseChange={setIsCollapsed}
+      />
 
-      <ColorPicker onColorChange={setActiveColor} activeColor={activeColor} />
+      {!isCollapsed && (
+        <ColorPicker onColorChange={setActiveColor} activeColor={activeColor} />
+      )}
 
       <SciFiCursor />
     </div>

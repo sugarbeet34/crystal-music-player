@@ -3,7 +3,16 @@
     "allow": [
       "Bash(npm run:*)",
       "Bash(curl:*)",
-      "Bash(NODE_OPTIONS=\"--max-old-space-size=4096\" npm run:*)"
+      "Bash(NODE_OPTIONS=\"--max-old-space-size=4096\" npm run:*)",
+      "Bash(git push:*)",
+      "Bash(ssh:*)",
+      "Bash(git remote:*)",
+      "Bash(git config:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)"
     ]
   }
 }
